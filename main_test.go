@@ -50,3 +50,20 @@ func TestUserHandler_Create(t *testing.T) {
 		})
 	}
 }
+
+func TestUserHandler_Delete(t *testing.T) {
+	endpoint := "/user/"
+	tests := []struct {
+		description []string
+		id          string
+		status      int
+	}{
+		{[]string{"unexpected error"}, "1", http.StatusInternalServerError},
+	}
+	for _, tt := range tests {
+		t.Run(name(tt.status, tt.description...), func(t *testing.T) {
+			r := e2e.NewRequest("DELETE", endpoint+tt.id, nil)
+			e2e.RunTest(t, r, tt.status, e2e.PrettyJSON)
+		})
+	}
+}

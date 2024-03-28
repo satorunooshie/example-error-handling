@@ -83,7 +83,7 @@ func GetErrorMessage(err error) string {
 	if errors.As(err, &apperr) {
 		return apperr.Message()
 	}
-	return ""
+	return unknownErrorText
 }
 
 func GetDescription(err error) string {

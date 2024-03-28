@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/satorunooshie/example-error-handling/apperr"
@@ -39,4 +40,19 @@ func validate() error {
 		apperr.WithMessage("missing required fields in request header"),
 		apperr.WithDescription("suspicous request"),
 	))
+}
+
+func (User) Delete(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	if err := del(r.PathValue("id")); err != nil {
+		respondError(ctx, w, err)
+		return
+	}
+
+	respond(ctx, w, http.StatusNoContent, nil)
+}
+
+func del(_ string) error {
+	// not wrapped error
+	return errors.New("not implemented")
 }

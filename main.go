@@ -21,5 +21,6 @@ func router() http.Handler {
 	userHandler := handler.User{}
 	mux.HandleFunc("GET /user/{id}", userHandler.Get)
 	mux.HandleFunc("POST /user", userHandler.Create)
+	mux.HandleFunc("DELETE /user/{id}", userHandler.Delete)
 	return mux
 }
